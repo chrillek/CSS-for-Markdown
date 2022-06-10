@@ -1,0 +1,45 @@
+body {
+  margin-left: 2em;
+  font-family: "Century Schoolbook", Times, serif;
+  font-size: 1em;
+  color: black;
+  background-color: white;
+  padding: 0;
+  max-width: 55ch;
+}
+h1, h2, h3 {
+  font-family: Avenir, Helvetica, "sans serif"
+}
+p {
+  text-indent: 1em;
+}
+
+img {
+  max-width: 80%;
+}
+
+body :is(h2,h3) + p, li > p {
+  text-indent: 0;
+}
+blockquote {
+	margin-left: 2em;
+	border-left: 2px red solid;
+}
+blockquote > p {
+	text-indent: 0;
+	margin-left: 1em;
+	background-color: lightgrey;
+}
+table {
+  border-collapse: collapse;
+  width: 40ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+table :is(td, th) {
+  border: 1px solid black;
+  padding: 0.3em;
+}
+tr:nth-child(even) {
+  background-color: #ddffdd
+}
