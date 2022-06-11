@@ -1,3 +1,7 @@
-#/usr/bin/env /bin/bash
+#/usr/bin/env /bin/zsh
 
-(cd "/Users/ck/Develop/CSS for Markdown/" ; zip "Using CSS.zip" *.png "Using CSS.md" ; git add "Using CSS.zip")
+startDir="/Users/ck/Develop/websites"
+mdDir="CSS-for-Markdown"
+archive="$mdDir/Using CSS.zip"
+mdFile="$mdDir/Using CSS.md"
+(cd $startDir; rm "$archive"; find $mdDir -name "*.png" -print0 | xargs -0 zip "$archive" ; zip "$archive" "$mdFile")
