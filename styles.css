@@ -16,30 +16,35 @@ p {
 
 img {
   max-width: 80%;
+  display: block;
 }
 
 body :is(h2,h3) + p, li > p {
   text-indent: 0;
 }
 blockquote {
-	margin-left: 2em;
-	border-left: 2px red solid;
+  margin-left: 2em;
+  border-left: 2px red solid;
 }
 blockquote > p {
-	text-indent: 0;
-	margin-left: 1em;
-	background-color: lightgrey;
+  text-indent: 0;
+  margin-left: 1em;
+  background-color: lightgrey;
 }
 table {
+  margin-top: 1.5em;
   border-collapse: collapse;
   width: 40ch;
   margin-left: auto;
   margin-right: auto;
 }
+tr > th {
+  background-color: #d0d0ff;
+}
 table :is(td, th) {
   border: 1px solid black;
   padding: 0.3em;
 }
-tr:nth-child(even) {
-  background-color: #ddffdd
+tbody > tr:nth-child(even) {
+  background-color:  #e0e0ff;
 }

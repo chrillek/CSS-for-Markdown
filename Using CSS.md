@@ -60,7 +60,7 @@ Note that `%` values always refer to the enclosing element's (i.e. the parent's)
 You might have wondered where the `blockquote` element came from in the second
 example above. There is a fairly simple relationship between Markdown markers
 and HTML elements as shown in the following table. Click on the ▶︎ to
-open it. 
+open it.
 
 <details>
 <summary>Relationship between Markdown and HTML elements</summary>
@@ -180,7 +180,8 @@ Here, `blockquote > p` selects only those paragraphs that are immediate children
 ```
 !["Blockquote with white margin between text and red line"](Blockquote%202.png "Blockquote with white margin between text and red line")
 
-That gives you a white margin of `1em` between the red vertical bar at the left and the grey background of the blockquote.
+That gives you a white margin of `1em` between the red vertical bar at the left
+and the grey background of the blockquote.
 
 ## What about fonts?
 
@@ -247,7 +248,7 @@ That makes sure that images behave like paragraphs, i.e. they force line breaks 
 Another, more visually pleasing way to style images is to make text flow around them as described below.
 
 You might want to add a small shadow at the right and bottom margins of the image to make it stand out slightly:
-```
+```css
 img {
   box-shadow: 0.3em 0.3em 0.3em #ddd;
 }
@@ -272,7 +273,7 @@ Instead of having the text flow around the image at the right side, you can set 
 
 ## Styling tables
 
-Styling tables is more demanding then styling other elements. You first have to understand table structure: a `table` element consists of a head and a body (`thead` and `tbody`). Both of them in turn are made up of row (`tr`) elements. And every row consists of `th` (for a table head) or `td` elements which are finally defining the table cells themselves. So the whole thing looks like that:
+Styling tables is more demanding than styling other elements. You first have to understand table structure: a `table` element consists of a head and a body (`thead` and `tbody`). Both of them in turn are made up of row (`tr`) elements. And every row consists of `th` (for a table head) or `td` elements which are finally defining the table cells themselves. So the whole thing looks like that:
 ```html
 <table>
   <thead>
@@ -285,7 +286,17 @@ Styling tables is more demanding then styling other elements. You first have to 
   </tbody>
 </table>
 ```
-You've just seen how to apply a very basic styling (i.e. centering) to the whole table. One detail many people want are lines dividing the columns and rows. That, however, is not something you can set for the whole table. Instead, you have to specify a `border` for the `td` and `th` cells (i.e. those in the body and the head of the table):
+You've just seen how to apply [a very basic styling (i.e. centering) to the
+whole table](#how-to-center-elements). Another, very basic amendment would be to
+set the background color for the table head:
+```css
+tr th {
+  background-color: #d0ffd0; /* a light blue */
+}
+```
+!["Default table styling"](Table%20blue%20header.png "Default table styling with
+no borders")
+One detail many people want are lines dividing the columns and rows. That, however, is not something you can set for the whole table. Instead, you have to specify a `border` for the `td` and `th` cells (i.e. those in the body and the head of the table):
 
 ```css
 table :is(td, th) {
@@ -297,32 +308,42 @@ Here,  `table :is(td.th)` is an abbreviation for `table td, table th`. The borde
 
 However, these settings will result in a peculiar phenomenon in that there's small white space now between the borders of the individual cells. They look a bit like windows in a building. To get rid of it, add `border-collapse: collapse` to the style of the `table` element.
 
+!["Table with basic borders"](Table%20border.png "Table with basic borders")
+
 Another often required feature are alternating row colors. They're fairly easy to achieve like this:
 
 ```css
-tr:nth-child(even) {
-  background-color: lightblue;
+tbody tr:nth-child(even) {
+  background-color: #e0e0ff; /* a lighter blue than for the header */
 }
 ```
+!["Table with alternating row colors"](Table%20alternating%20row.png "Table with
+alternating row colors")
+This will display every second row with a light blue background, starting with
+the second row. The `:nth-child` pseudo-class is a bit tricky, though. If you
+have trouble with it, try using `:nth-of-type` instead. 
 
-This will display every second row with a light blue background, starting with the second row. If you want to start it with the first row, use `even` instead of `odd` in the above selector. If you want different colors for every second row, combine these rules like so:
+If you want to start it with the first row, use `even` instead of `odd` in the above selector. If you want different colors for every second row, combine these rules like so:
 
 ```css
-tr:nth-children(even) {
+tbody tr:nth-child(even) {
   background-color: lightblue;
 }
-tr:nth-children(odd) {
+tbody tr:nth-child(odd) {
   background-color: lightgreen;
 }
 ```
 
-`:nth-children` is a "pseudo-selector", and there are a lot of them, so it's worth checking them out on MDN.  Instead of `even` or `odd` you can specify more complicated rules like `4n+1` to select the rows 1, 5, 9, 13 etc. In fact, `even` is the same as `2n` and odd is `2n+1`.
+There are a lot of other "pseudo classes", so it's worth checking them out on MDN.  Instead of `even` or `odd` you can specify more complicated rules like `4n+1` to select the rows 1, 5, 9, 13 etc. In fact, `even` is the same as `2n` and odd is `2n+1`.
 
 ## What about dark mode?
 
-Until now, all examples were assuming the document were displayed as dark text on a white background. That would look weird on a device set to dark mode, where text should be light on a dark background.
+Until now, all examples were assuming that the document is displayed as dark
+text on a white background. That would look weird on a device set to dark mode,
+where text should be light on a dark background. But fortunately, CSS is able to
+determine if the device is currently set to dark mode.
 
-You can detect the mode in your CSS with a "media selector" like so:
+That is achieved with a "media selector" like so:
 ```css
 @media (prefers-color-scheme:dark) {
 ... style definitions go here
@@ -335,7 +356,28 @@ body {
   color: white;
 }
 ```
-and you have to make sure to put this _inside_ the curly braces following the media selector.
+and you have to make sure to put this _inside_ the curly braces following the
+media selector like so:
+```css
+@media (prefers-color-scheme:dark) {
+  body {
+    background-color: black;
+    color: white;
+  }
+}
 
-This is just the most basic setting. If you use different colors, you verify  that they display nicely in dark mode. And if you're using borders, you might want to make them wider in dark mode since light on dark is more difficult to see than dark on white. Also, a font with very fine character stems might not be a good idea for dark mode, since these stems are harder to recognize.
+This is just the most basic setting. If you use a more complex color scheme, you verify  that it is rendered nicely in dark mode. For example, all but the lightest shades of gray might be difficult to recognize.
+
+If you're using borders, you might want to make them wider in dark mode since light on dark is more difficult to see than dark on white. Also, a font with very fine character stems might not be a good idea for dark mode, since these stems are harder to recognize. 
+
+Of course, if you prefer dark over light mode anyway, you could set up the main part of your CSS so that it works well on a dark background. And then use 
+```css
+@media (prefers-color-scheme:light) {
+    body {
+    background-color: white;
+    color: black;
+  }
+}
+```
+as a starting point for a light mode style sheet.
 
