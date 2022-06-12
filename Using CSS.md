@@ -38,9 +38,9 @@ body {
   background-color: white;
 }
 ```
-!["The baseline: white background, black text"](Kein-Stil.png "The baseline: white background, black text")
+![The baseline: white background, black text](images/Kein-Stil.png "The baseline: white background, black text")
 
-These lines make sure that the `body` element of an HTML document is displayed black (`color`) on white (`background-color`). As styles are "cascading" (the C in CSS), this simple definition ensures that \_all text\_\_ in your rendered Markdown appears black on white – all elements are children of the `body` element and by default inherit its style definitions.
+These lines ensure that the `body` element of an HTML document is displayed black (`color`) on white (`background-color`). As styles are "cascading" (the C in CSS), this simple definition ensures that \_all text\_\_ in your rendered Markdown appears black on white – all elements are children of the `body` element and by default inherit its style definitions.
 
 So what would you do if you wanted to make quotes appear indented and with a different background color? You'd have to define these attributes for the element `blockquote`:
 ```css
@@ -134,14 +134,16 @@ p {
   text-indent: 1em;
 }
 ```
-!["Paragraphs indented by 1em space"](1em-Paragraph-Indent.png "Paragraphs indented by 1em space")
+![Paragraphs indented by 1em space](images/1em-Paragraph-Indent.png "Paragraphs indented by 1em space")
+
 or if you'd want all first level headlines to have a red underline
 ```css
 h1 {
   text-decoration: underline red;
 }
 ```
-!["H1 headings underlined with red"](H1%20red%20underline.png "H1 headings underlined with red")
+!["H1 headings underlined with red"](images/H1%20red%20underline.png "H1 headings underlined with red")
+
 or if you'd want all third level headings to appear in uppercase
 
 ```css
@@ -149,7 +151,8 @@ h2 {
   text-transform: uppercase;
 }
 ```
-!["Uppercased H2 headings"](H1%20red%20underline,%20H2%20uppercase.png "Uppercased H2 headings")
+!["Uppercased H2 headings"](images/H1%20red%20underline,%20H2%20uppercase.png "Uppercased H2 headings")
+
 The latter, though, is probably not a very good idea – firstly, all uppercase letters are more difficult to read, secondly many readers will think that you're screaming at them. And thirdly, the text looks fundamentally different than what you see in your Markdown document.
 
 ## Styling block quotes
@@ -162,7 +165,8 @@ blockquote {
   background-color: lightgrey;
 }
 ```
-!["First attempt at blockquote styling"](Blockquote%201.png "First attempt at blockquote styling")
+!["First attempt at blockquote styling"](images/Blockquote%201.png "First attempt at blockquote styling")
+
 Now, if you look at that in the rendered view, you might think that it leaves room for improvement. And it certainly does: first, the background color starts at the left side of the block, but the text begins `2em`s to the right of that. It would be nicer if only the text would have a different background color, not the whole block including the margin.
 
 Then the first line of text is indented by `1em`. That happens because it is contained in a `p` element, and all `p` elements are indented. But we don't want that for those paragraphs inside a `blockquote`:
@@ -176,7 +180,7 @@ Here, `blockquote > p` selects only those paragraphs that are immediate children
 margin-left: 1em;
 background-color: lightgrey;
 ```
-!["Blockquote with white margin between text and red line"](Blockquote%202.png "Blockquote with white margin between text and red line")
+!["Blockquote with white margin between text and red line"](images/Blockquote%202.png "Blockquote with white margin between text and red line")
 
 That gives you a white margin of `1em` between the red vertical bar at the left and the grey background of the blockquote.
 ## What about fonts?
@@ -191,7 +195,9 @@ h4 {
   font-family: Avenir, Helvetica, "sans serif";
 }
 ```
-!["Avenir for first and second level headings"](H1,%20H2%20Font.png "Avenir for
+
+!["Avenir for first and second level headings"](images/H1,%20H2%20Font.png "Avenir for
+
 first and second level headings")
 This `font-family` applies to headlines level 1 through 4. Note that font names containing spaces must be enclosed in double quotes. The selector is an example for specifying the same style for several HTML elements: just list the elements (or even more complicated selectors like `blockquote > p`) separated by commas.
 
@@ -219,7 +225,8 @@ table {
 
 Without styling, an image will be displayed as large as possible. If it is smaller than the enclosing element (i.e. `body`), it will be made as wide as the `body` element is. If it's smaller, it will be displayed in its original size.
 
-!["Default image display"](img%20full.png "Default image display")
+![Default image display](images/img%20full.png "Default image display")
+
 The image height will be set to respect the original aspect ration and avoid distortion. There are ways to specify image width and height in the Markdown document itself, but I'd advise against it: It is a lot easier to style (and size) all images the same way with CSS. So,
 
 ```css
@@ -228,7 +235,8 @@ img {
 }
 ```
 sets the width of all images to half of their parent element.
-!["Image scaled to half the width of its parent"](img%2050%.png "Image scaled to half the width of its parent")
+
+![Image scaled to half the width of its parent](images/img%2050%.png "Image scaled to half the width of its parent")
 
 If you try that out, you'll notice that an image in the middle of a paragraph looks a bit weird since it interrupts the flow of the text in a funny way.
 
@@ -240,7 +248,9 @@ img {
   display: block;
 }
 ```
-!["Image displayed as block"](img%20block.png "Image displayed as block")
+
+!["Image displayed as block"](images/img%20block.png "Image displayed as block")
+
 That makes sure that images behave like paragraphs, i.e. they force line breaks before and after them.
 
 Another, more visually pleasing way to style images is to make text flow around them as described below.
@@ -261,10 +271,12 @@ img {
   float: left;
 }
 ```
-!["Image floated to the left"](img%20float.png "Image floated to the left")
+
+!["Image floated to the left"](images/img%20float.png "Image floated to the left")
+
 makes the image stay at the left margin of the document, while the text continues at its right side. You should set the top, right, and bottom margin for the `img` element, too, so that the text does not crowd it.
 
-!["Image floated to the left with margins"](img%20float%20+%20margin.png "Image floated to the left with margins")
+!["Image floated to the left with margins"](images/img%20float%20+%20margin.png "Image floated to the left with margins")
 
 Instead of having the text flow around the image at the right side, you can set `float` to `right` so that the image appears at the document's right margin and the text to the left of it.
 
@@ -301,8 +313,10 @@ tr th {
   background-color: #d0ffd0; /* a light blue */
 }
 ```
-!["Default table styling"](Table%20blue%20header.png "Default table styling with
+
+!["Default table styling without borders"](images/Table%20blue%20header.png "Default table styling with
 no borders")
+
 One detail many people want are lines dividing the columns and rows. That, however, is not something you can set for the whole table. Instead, you have to specify a `border` for the `td` and `th` cells (i.e. those in the body and the head of the table):
 ```css
 table :is(td, th) {
@@ -314,7 +328,7 @@ Here, `table :is(td.th)` is an abbreviation for `table td, table th`. The border
 
 However, these settings will result in a peculiar phenomenon in that there's small white space now between the borders of the individual cells. They look a bit like windows in a building. To get rid of it, add `border-collapse: collapse` to the style of the `table` element.
 
-!["Table with basic borders"](Table%20border.png "Table with basic borders")
+!["Table with basic borders"](images/Table%20border.png "Table with basic borders")
 
 Another often required feature are alternating row colors. They're fairly easy to achieve like this:
 
@@ -323,8 +337,10 @@ tbody tr:nth-child(even) {
   background-color: #e0e0ff; /* a lighter blue than for the header */
 }
 ```
-!["Table with alternating row colors"](Table%20alternating%20row.png "Table with
+
+!["Table with alternating row colors"](images/Table%20alternating%20row.png "Table with
 alternating row colors")
+
 This will display every second row with a light blue background, starting with the second row. The `:nth-child` pseudo-class is a bit tricky, though. If you have trouble with it, try using `:nth-of-type` instead.
 
 If you want to start it with the first row, use `even` instead of `odd` in the above selector. If you want different colors for every second row, combine these rules like so:
@@ -364,7 +380,7 @@ Let's assume a Markdown document like this
 ```
 Rendering that as HTML results in something like this
 
-![Unstyled Headings](Headings%20no%20style.png "Unstyled Headings")
+![Unstyled Headings](images/Headings%20no%20style.png "Unstyled Headings")
 
 Adding a counter to the headings requires three steps:
 
@@ -383,6 +399,9 @@ h1::before {
 }
 ```
 First, you create a counter named `h1` in the CSS rule for the `body` element. Its value is set to `0` by default. Then comes the `::before` pseudo-element for the `h1` element. It's different from other CSS selectors in that it _creates_ an element (a pseudo one, though) in the `h1` element just before anything that is already part of this element. So the (pseudo-HTML) for the first heading would look like `<h1><before>...</before>First heading</h1>`. Note that this `before` element does not exist! However, you can create and style it in a stylesheet like here. The rule for `h1::before` first increments the counter `h1` with `counter-increment`. Since it started out with `0` because of the `body` rule, it will now be `1`. Then this value is prepended to the content of `h1` with the `content:` directive: `counter(h1)` gets the value of the counter, and `". "` appends a dot and a space. After all that, the headlines look like this: ![First level headings with a counter](Headings%201st%20level%20numbering.png "First level headings with a counter")
+
+![Numbered first level headings](images/Headings%201st%20level%20numbering.png
+"Numbered first level headings")
 
 Now adding the corresponding rules for 2nd and 3rd level headings is a lot easier:
 
@@ -404,17 +423,19 @@ h3::before {
 ```
 The only new things here are the `content:` definitions for the level 2 and 3 headings and the `counter-reset`s: Whenever a new level 1 heading appears, the `h2` counter must be reset so that the next level 2 heading is numbered with 1 again. The same holds for a new level 2 heading that must reset the `h3` counter.
 
-![All headings numbered](Headings%20all%20levels%20numbering.png "All headings numbered")
+![All headings numbered](images/Headings%20all%20levels%20numbering.png "All headings numbered")
 
 If you now move the line "# Second Heading" down to just before "# Third heading", you'll get this HTML:
 
-![Second heading moved ](Headings%202nd%20moved.png "Second heading moved")
+![Second heading moved ](images/Headings%202nd%20moved.png "Second heading moved")
 
 As you can see, the former "2.1 First sub-heading of second heading" has now become "1.1 First sub-heading of second heading", since it's now following the first `h1` element, no longer the second one.
 
 If you delete the line "# Second Heading" completely, the numbering for all subsequent headings will be adjusted:
-![Heading 2 deleted](Heading%202nd%20removed.png "Heading 2 deleted")
-CSS counters can not only be used for headings but also for lists, footnotes and links. You're not limited to arabic numerals but can[ define your own `counter-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles).
+
+![Heading 2 deleted](images/Heading%202nd%20removed.png "Heading 2 deleted")
+
+CSS counters can not only be used for headings but also for lists, footnotes and links. You're not limited to Arabic numerals but can[ define your own `counter-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles).
 ## What about dark mode?
 Until now, all examples were assuming that the document is displayed as dark text on a white background. That would look weird on a device set to dark mode, where text should be light on a dark background. But fortunately, CSS is able to determine if the device is currently set to dark mode.
 
@@ -432,15 +453,14 @@ body {
 }
 ```
 and you have to make sure to put this _inside_ the curly braces following the media selector like so:
-
-````css
+```css
 @media (prefers-color-scheme:dark) {
   body {
     background-color: black;
     color: white;
   }
 }
-
+```
 This is just the most basic setting. If you use a more complex color scheme, you verify  that it is rendered nicely in dark mode. For example, all but the lightest shades of gray might be difficult to recognize.
 
 If you're using borders, you might want to make them wider in dark mode since light on dark is more difficult to see than dark on white. Also, a font with very fine character stems might not be a good idea for dark mode, since these stems are harder to recognize.
@@ -453,6 +473,5 @@ Of course, if you prefer dark over light mode anyway, you could set up the main 
     color: black;
   }
 }
-````
-
+```
 as a starting point for a light mode style sheet.

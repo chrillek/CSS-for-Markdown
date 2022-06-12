@@ -14,12 +14,25 @@ p {
   text-indent: 1em;
 }
 
+figure {  
+  margin-bottom: 0.5em;
+}
 img {
+  box-shadow: 0.3em 0.3em 0.3em #e0e0e0;
   max-width: 80%;
   display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-body :is(h2,h3) + p, li > p {
+figcaption {
+  font-family: Avenir, Helvetica, "sans serif";
+  font-style: italic;
+  font-size: 90%;
+  margin-top: 0.3em;
+  text-align: center;
+}
+:is(h2,h3) + p, li > p {
   text-indent: 0;
 }
 blockquote {
@@ -29,7 +42,7 @@ blockquote {
 blockquote > p {
   text-indent: 0;
   margin-left: 1em;
-  background-color: lightgrey;
+  background-color: #e0e0e0;
 }
 table {
   margin-top: 1.5em;
@@ -47,4 +60,14 @@ table :is(td, th) {
 }
 tbody > tr:nth-child(even) {
   background-color:  #e0e0ff;
+}
+
+@media only print  {
+  h2 {
+    page-break-before: always;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
 }
