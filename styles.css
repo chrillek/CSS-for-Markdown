@@ -10,10 +10,22 @@ body {
 h1, h2, h3 {
   font-family: Avenir, Helvetica, "sans serif"
 }
+ul {
+  padding-left: 1.5em;
+}
+ul li {
+  list-style: none;
+  line-height: 1.5em;
+}
 p {
   text-indent: 1em;
+  line-height: 1.5;
 }
-
+pre {
+  padding: 0.3em;
+  border: 1px solid black;
+  background-color: #eee;
+}
 figure {  
   margin-bottom: 0.5em;
 }
@@ -63,11 +75,21 @@ tbody > tr:nth-child(even) {
 }
 
 @media only print  {
-  h2 {
-    page-break-before: always;
+  body>h2:not(:first-child) {
+    break-before: page;
+  }
+  h3,h2 {
+    break-after: avoid;
+  }
+  table, pre, figure {
+    break-inside: avoid;
   }
   p {
     orphans: 3;
     widows: 3;
+  }
+p a::after {
+    content: " (" attr(href) " )";
+    color: #9999ff;
   }
 }

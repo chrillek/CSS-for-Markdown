@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="styles.css">
-
+{{TOC}}
 ## Why would you care about CSS?
 
-CSS stands for Cascading Style Sheets. It is a text format that allows you to describe the visual appearance of HTML documents. In DEVONthink, CSS is used to determine the visual appearance of Markdown documents when they are rendered as HTML. Whenever you select the **display** (?) mode to look at a Markdown document, you'll see it rendered as HTML in some kind of "style". Unless you do anything about it, this will be the style that is built into DEVONthink (and the HTML engine it uses). If you're happy with that, you can stop reading here.
+CSS stands for Cascading Style Sheets. It is a text format that allows you to describe the visual appearance of HTML documents. In DEVONthink, CSS is used to determine the visual appearance of Markdown documents when they are rendered as HTML. Whenever you select the preview mode to look at a Markdown document, you'll see it rendered as HTML in some kind of "style". Unless you do anything about it, this will be the style that is built into DEVONthink (and the HTML engine it uses). If you're happy with that, you can stop reading here.
 
 ## How can you tell DEVONthink to use your own CSS?
 
@@ -40,7 +40,7 @@ body {
 ```
 ![The baseline: white background, black text](images/Kein-Stil.png "The baseline: white background, black text")
 
-These lines ensure that the `body` element of an HTML document is displayed black (`color`) on white (`background-color`). As styles are "cascading" (the C in CSS), this simple definition ensures that \_all text\_\_ in your rendered Markdown appears black on white – all elements are children of the `body` element and by default inherit its style definitions.
+These lines ensure that the `body` element of an HTML document is displayed black (`color`) on white (`background-color`). As styles are "cascading" (the C in CSS), this simple definition ensures that _all text_ in your rendered Markdown appears black on white – all elements are children of the `body` element and by default inherit its style definitions.
 
 So what would you do if you wanted to make quotes appear indented and with a different background color? You'd have to define these attributes for the element `blockquote`:
 ```css
@@ -57,10 +57,7 @@ In many CSS examples, you'll still find units like `px`, for example something l
 
 Note that `%` values always refer to the enclosing element's (i.e. the parent's) dimensions. In the case of `font-size`, a percentage value also refers to the font size of the parent element.
 
-You might have wondered where the `blockquote` element came from in the second example above. There is a fairly simple relationship between Markdown markers and HTML elements as shown in the following table. Click on the ▶︎ to open it.
-
-<details>
-<summary>Relationship between Markdown and HTML elements</summary>
+You might have wondered where the `blockquote` element came from in the second example above. There is a fairly simple relationship between Markdown markers and HTML elements as shown in the following table. 
 
 | Markdown               | HTML element                                                                     |
 | :--------------------- | :------------------------------------------------------------------------------- |
@@ -142,7 +139,7 @@ h1 {
   text-decoration: underline red;
 }
 ```
-!["H1 headings underlined with red"](images/H1%20red%20underline.png "H1 headings underlined with red")
+![H1 headings underlined with red](images/H1%20red%20underline.png "H1 headings underlined with red")
 
 or if you'd want all third level headings to appear in uppercase
 
@@ -151,7 +148,7 @@ h2 {
   text-transform: uppercase;
 }
 ```
-!["Uppercased H2 headings"](images/H1%20red%20underline,%20H2%20uppercase.png "Uppercased H2 headings")
+![Uppercased H2 headings](images/H1%20red%20underline,%20H2%20uppercase.png "Uppercased H2 headings")
 
 The latter, though, is probably not a very good idea – firstly, all uppercase letters are more difficult to read, secondly many readers will think that you're screaming at them. And thirdly, the text looks fundamentally different than what you see in your Markdown document.
 
@@ -165,7 +162,7 @@ blockquote {
   background-color: lightgrey;
 }
 ```
-!["First attempt at blockquote styling"](images/Blockquote%201.png "First attempt at blockquote styling")
+![First attempt at blockquote styling](images/Blockquote%201.png "First attempt at blockquote styling")
 
 Now, if you look at that in the rendered view, you might think that it leaves room for improvement. And it certainly does: first, the background color starts at the left side of the block, but the text begins `2em`s to the right of that. It would be nicer if only the text would have a different background color, not the whole block including the margin.
 
@@ -180,7 +177,7 @@ Here, `blockquote > p` selects only those paragraphs that are immediate children
 margin-left: 1em;
 background-color: lightgrey;
 ```
-!["Blockquote with white margin between text and red line"](images/Blockquote%202.png "Blockquote with white margin between text and red line")
+![Blockquote with white margin between text and red line](images/Blockquote%202.png "Blockquote with white margin between text and red line")
 
 That gives you a white margin of `1em` between the red vertical bar at the left and the grey background of the blockquote.
 ## What about fonts?
@@ -196,9 +193,8 @@ h4 {
 }
 ```
 
-!["Avenir for first and second level headings"](images/H1,%20H2%20Font.png "Avenir for
+![Avenir for first and second level headings](images/H1,%20H2%20Font.png "Avenir for first and second level headings")
 
-first and second level headings")
 This `font-family` applies to headlines level 1 through 4. Note that font names containing spaces must be enclosed in double quotes. The selector is an example for specifying the same style for several HTML elements: just list the elements (or even more complicated selectors like `blockquote > p`) separated by commas.
 
 Usually, the default font sizes for the different headings are ok. If you want to change those, use the attribute `font-size` and specify an `em` value, for example `2.0em` for a `h1`. Do not use pixels or other absolute values here: The person viewing your HTML might have chosen their own preferred font size in the browser settings and specifying absolute values for font sizes plays havoc with these settings.
@@ -249,7 +245,7 @@ img {
 }
 ```
 
-!["Image displayed as block"](images/img%20block.png "Image displayed as block")
+![Image displayed as block](images/img%20block.png "Image displayed as block")
 
 That makes sure that images behave like paragraphs, i.e. they force line breaks before and after them.
 
@@ -272,11 +268,11 @@ img {
 }
 ```
 
-!["Image floated to the left"](images/img%20float.png "Image floated to the left")
+![Image floated to the left](images/img%20float.png "Image floated to the left")
 
 makes the image stay at the left margin of the document, while the text continues at its right side. You should set the top, right, and bottom margin for the `img` element, too, so that the text does not crowd it.
 
-!["Image floated to the left with margins"](images/img%20float%20+%20margin.png "Image floated to the left with margins")
+![Image floated to the left with margins](images/img%20float%20+%20margin.png "Image floated to the left with margins")
 
 Instead of having the text flow around the image at the right side, you can set `float` to `right` so that the image appears at the document's right margin and the text to the left of it.
 
@@ -307,14 +303,14 @@ Styling tables is more demanding than styling other elements. You first have to 
   </tbody>
 </table>
 ```
-You've just seen how to apply [a very basic styling (i.e. centering) to the whole table](#how-to-center-elements). Another, very basic amendment would be to set the background color for the table head:
+You've just seen how to apply [a very basic styling (i.e. centering) to the whole table](#howtocenterelements). Another, very basic amendment would be to set the background color for the table head:
 ```css
 tr th {
   background-color: #d0ffd0; /* a light blue */
 }
 ```
 
-!["Default table styling without borders"](images/Table%20blue%20header.png "Default table styling with
+![Default table styling without borders](images/Table%20default.png "Default table styling with
 no borders")
 
 One detail many people want are lines dividing the columns and rows. That, however, is not something you can set for the whole table. Instead, you have to specify a `border` for the `td` and `th` cells (i.e. those in the body and the head of the table):
@@ -328,7 +324,7 @@ Here, `table :is(td.th)` is an abbreviation for `table td, table th`. The border
 
 However, these settings will result in a peculiar phenomenon in that there's small white space now between the borders of the individual cells. They look a bit like windows in a building. To get rid of it, add `border-collapse: collapse` to the style of the `table` element.
 
-!["Table with basic borders"](images/Table%20border.png "Table with basic borders")
+![Table with basic borders](images/Table%20border.png "Table with basic borders")
 
 Another often required feature are alternating row colors. They're fairly easy to achieve like this:
 
@@ -338,7 +334,7 @@ tbody tr:nth-child(even) {
 }
 ```
 
-!["Table with alternating row colors"](images/Table%20alternating%20row.png "Table with
+![Table with alternating row colors](images/Table%20alternating%20row.png "Table with
 alternating row colors")
 
 This will display every second row with a light blue background, starting with the second row. The `:nth-child` pseudo-class is a bit tricky, though. If you have trouble with it, try using `:nth-of-type` instead.
