@@ -20,3 +20,7 @@ The accompanying CSS file `styles.css` is used to style the preview of the docum
 DEVONthink and of the PDF version that you can produce by simply converting
 `Using CSS.md` inside of DEVONthink. This CSS file might provide additional
 ideas on how write CSS rules, especially for print media. 
+
+Note that the text and the examples are geared towards the Markdown dialect used
+by DEVONthink, which is MultiMarkdown. It may or may not work with other
+Markdown implementations. 

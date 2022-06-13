@@ -1,3 +1,9 @@
+/* Define the baseline:
+   define a small left margin
+   choose a serif font for all text
+   set the mode to light (dark on black)
+   remove all internal padding of the body element
+   set the maximum width for text to 55 characters */
 body {
   margin-left: 2em;
   font-family: "Century Schoolbook", Times, serif;
@@ -7,28 +13,94 @@ body {
   padding: 0;
   max-width: 55ch;
 }
+/* The table of content
+   take it out of the normal flow (position: absolute)
+   move it to the right of the text (left: 70ch)
+   use a light grey box to highlight it (background-color, border)
+   leave some room between the box's margin and the text (padding: 1.5em)
+   */
+.TOC {
+  position: absolute;
+  left: 70ch;
+  background-color: #eee;
+  padding: 1.5em;
+  border: 2px solid #ddd;
+}
+
+/* The text of the table of content
+  Use a slightly smaller font 
+  */
+.TOC ul {
+  font-size: 0.9em;
+}
+
+/* Add a heading to the table of content
+   heading is "Table of content"
+   same font as for headlines (see below)
+*/
+.TOC::before {
+  content: "Table of content";
+  font-family: Avenir, Helvetica, "sans serif";
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+/* Select a sans-serif font for the headlines
+   Try Avenir, then Helvetica, finally fall back to sans serif
+   */
 h1, h2, h3 {
   font-family: Avenir, Helvetica, "sans serif"
 }
+/** The following settings for ul and li elements are currently only relevant
+for the table of content **/
+
+/* Remove all padding from first level ul elements */
 ul {
+  padding-left: 0;
+}
+/* Set paddig for second level ul elements */
+li ul {
   padding-left: 1.5em;
 }
+/* Remove all styling from li elements (i.e. no bullets etc)
+   Ensure that the lines are high enough to not let the li elements appear
+   crowded */
 ul li {
   list-style: none;
   line-height: 1.5em;
 }
+/* Indent the first line of all paragraphs by 1em, 
+set their line spacing to 1.5 times the font-size */
 p {
   text-indent: 1em;
   line-height: 1.5;
 }
+/* Turn off first line indentation for
+  all paragraphs immediately following an h2 or h3 headline
+  The '+' means: Direct sibling of the preceding element
+  all paragraphs inside of li elements, i.e. lists
+  the '>' means: Direct child of the preceding element. */
+:is(h2,h3) + p, li > p {
+  text-indent: 0;
+}
+/* Code samples
+   Enclose code in a light grey box (border, background-color)
+   Add some padding so the text is not too close to the box */
 pre {
   padding: 0.3em;
   border: 1px solid black;
   background-color: #eee;
 }
+/* Figures (i.e. images with a caption)
+  Add some space to the bottom so that the next paragraphs is not too close */
 figure {  
   margin-bottom: 0.5em;
 }
+/* Images
+  make them stand out a bit by adding a shadow (box-shadow)
+  make them slightly narrower than the text
+  set the display to block so that centering them with margin-* works
+  center by setting margin-left and margin-right to auto */
 img {
   box-shadow: 0.3em 0.3em 0.3em #e0e0e0;
   max-width: 80%;
@@ -36,7 +108,10 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
-
+/* Caption for images
+  Use a slightly smaller sans-serif font in italics (font-family, font-style, font-size)
+  add some space between the caption and the image (margin-top)
+  center the text (same as the image, see above) with text-align */
 figcaption {
   font-family: Avenir, Helvetica, "sans serif";
   font-style: italic;
@@ -44,18 +119,27 @@ figcaption {
   margin-top: 0.3em;
   text-align: center;
 }
-:is(h2,h3) + p, li > p {
-  text-indent: 0;
-}
+/* Blockquotes
+  Indent by 2em from normal paragraphs
+  display a vertical red line at the left */
 blockquote {
   margin-left: 2em;
   border-left: 2px red solid;
 }
+/* Text inside blockquotes
+  Remove the default first-line indentation
+  add a margin between the text and the red line (see above)
+  make the text stand out by putting it on a light grey background */
 blockquote > p {
   text-indent: 0;
   margin-left: 1em;
   background-color: #e0e0e0;
 }
+/* Table
+  Add some space to the preceding text (margin-top)
+  Remove defaut spacing between borders (border-collapse)
+  Make slightly smaller than body to allow centering with margin-*
+  Center with margin-right, margin-left set to auto */
 table {
   margin-top: 1.5em;
   border-collapse: collapse;
@@ -63,31 +147,57 @@ table {
   margin-left: auto;
   margin-right: auto;
 }
+/* Table header cells
+  Set background to a light blue */
 tr > th {
   background-color: #d0d0ff;
 }
+/* All table cells 
+  Define a border
+  Give the text inside the cells some space from this border (padding) */
 table :is(td, th) {
   border: 1px solid black;
   padding: 0.3em;
 }
+/* Every 2nd table row
+  set background to a blue that is slightly lighter than the one used in the
+  header */
 tbody > tr:nth-child(even) {
   background-color:  #e0e0ff;
 }
 
+/** All the following styles apply only to the printed version, i.e. PDF **/
 @media only print  {
+  /* Reduce the font size a bit, the default is too large */
+  body {
+    font-size: 0.9em;
+  }
+  /* Move to table of content more to the left since it will appear on its own
+page */
+  .TOC {
+    left: 10ch;
+  }
+  /* Create a page break before every h2 element _but_ the very first */
   body>h2:not(:first-child) {
     break-before: page;
   }
+  /* Prevent page breaks immediately after h2 and and h3 headings */
   h3,h2 {
     break-after: avoid;
   }
+  /* Prevent page breaks in the middle of tables, figures and code samples */
   table, pre, figure {
     break-inside: avoid;
   }
+  /* Ensure that there are at least three lines of text
+     at the top and bottom of each page */
   p {
     orphans: 3;
     widows: 3;
   }
+  /* Add the link target to links
+    but only for links inside normal paragraphs. 
+    That makes sure that the link targets do not appear in the table of content */
 p a::after {
     content: " (" attr(href) " )";
     color: #9999ff;
