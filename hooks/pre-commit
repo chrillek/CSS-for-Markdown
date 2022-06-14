@@ -5,7 +5,7 @@ mdDir="CSS-for-Markdown"
 archive="$mdDir/Using CSS.zip"
 mdFile="$mdDir/Using CSS.md"
 cssFile="$mdDir/styles.css"
-(cd $startDir; rm "$archive"; find $mdDir/images -name "*.png" -print0 | xargs -0 zip "$archive" ; zip "$archive" "$mdFile" "$cssFile")
+(cd $startDir; rm "$archive"; find $mdDir/images -name "*.png" -print0 | xargs -0 zip "$archive" ; zip "$archive" "$mdFile" "$cssFile"; git add -u $archive)
 
 exit 0
 cp "$archive" /tmp
