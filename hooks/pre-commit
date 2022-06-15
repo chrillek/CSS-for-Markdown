@@ -2,11 +2,12 @@
 
 startDir="/Users/ck/Develop/websites"
 mdDir="CSS-for-Markdown"
-fullDir="$startDir/$mdDir"
+fullDir="$startDir/$mdDir"  # GIT_DIR
 archive="$mdDir/Using CSS.zip"
 mdFile="$mdDir/Using CSS.md"
 cssFile="$mdDir/styles.css"
 pdfFile="Using CSS.pdf"
+
 (cd $startDir; rm -f "$archive" "$mdDir/$pdfFile"; find $mdDir/images -name "*.png" -print0 | xargs -0 zip "$archive"; zip "$archive" "$mdFile" "$cssFile")
 (cd "$fullDir";  git add -u "Using CSS.zip")
 
