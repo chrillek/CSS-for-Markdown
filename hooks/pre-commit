@@ -7,7 +7,7 @@ mdFile="$mdDir/Using CSS.md"
 cssFile="$mdDir/styles.css"
 pdfFile="$mdDir/Using CSS.pdf"
 (cd $startDir; rm "$archive"; find $mdDir/images -name "*.png" -print0 | xargs -0 zip "$archive"; zip "$archive" "$mdFile" "$cssFile")
-(cd "$startDir/$mdDir";  git add -u "$archive")
+(cd "$startDir/$mdDir";  git add -u "Using CSS.zip")
 
 exit 0
 cp "$archive" /tmp
