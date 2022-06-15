@@ -18,6 +18,6 @@ cp "$startDir/$archive" /tmp
 # Now the archive is ready. Build the PDF from it using DEVONthink
 ## Doesn't work yet due to a bug in DT's JXA binding
 
- (cd $startDir;  osascript -l JavaScript "$mdDir/buildPDF.js" /tmp/Markdown-for-CSS "Using CSS.md" "$fullDir"; cd "$mdDir" ; git add -u "$pdfFile" )
+ (cd $startDir;  osascript -l JavaScript "$mdDir/buildPDF.js" /tmp/Markdown-for-CSS "Using CSS" "$fullDir"; cd "$mdDir" ; git add -u "$pdfFile" )
 
  rm "/tmp/Using CSS.zip"
