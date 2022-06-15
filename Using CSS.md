@@ -461,7 +461,6 @@ This is just the most basic setting. If you use a more complex color scheme, you
 
 If you're using borders, you might want to make them wider in dark mode since light on dark is more difficult to see than dark on white. Also, a font with very fine character stems might not be a good idea for dark mode, since these stems are harder to recognize.
 
-
 Whatever special styling you want to apply, make sure it goes _inside_ the media selector's curly braces. 
 
 Of course, if you prefer dark over light mode anyway, you could set up the main part of your CSS so that it works well on a dark background. And then use

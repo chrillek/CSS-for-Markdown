@@ -5,17 +5,19 @@ mdDir="CSS-for-Markdown"
 archive="$mdDir/Using CSS.zip"
 mdFile="$mdDir/Using CSS.md"
 cssFile="$mdDir/styles.css"
+pdfFile="$mdDir/Using CSS.pdf"
 (cd $startDir; rm "$archive"; find $mdDir/images -name "*.png" -print0 | xargs -0 zip "$archive" ; zip "$archive" "$mdFile" "$cssFile"; git add -u $archive)
 
-exit 0
+#exit 0
 cp "$archive" /tmp
-cd /tmp 
-unzip "Using CSS.zip"
-rm "Using CSS.zip"
+(cd /tmp ; unzip "Using CSS.zip")
 
 # The archive is unpacked in /tmp/CSS-for-Markdown now
 
 # Now the archive is ready. Build the PDF from it using DEVONthink
 ## Doesn't work yet due to a bug in DT's JXA binding
 
-# osascript -l JavaScript "$startDir/$mdDir/buildPDF.js" /tmp/Markdown-for-CSS "Using CSS.md" "$startDir/$mdDir"
+ (cd $startDir;  osascript -l JavaScript "$mdDir/buildPDF.js" /tmp/Markdown-for-CSS "Using CSS.md" "$mdDir" ; git add -u "$pdfFile"
+)
+
+ rm "/tmp/Using CSS.zip"
