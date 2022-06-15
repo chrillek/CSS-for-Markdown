@@ -10,7 +10,7 @@
   const mdGroup = app.import(pathToDirectory);
   app.logMessage('imported')
   const mdFile = app.search(`name: ${mdName}`, {in: mdGroup});
-  app.logMessage(`{mdFile.length} files found in Group`);
+  app.logMessage(`${mdFile.length} files found in Group`);
   if (mdFile.length === 1) throw `File '${mdName}' not found in group '${mdGroup}'`;
   const pdfFile = app.convert( {record: mdFile[0], to: "PDF document"});
   app.logMessage(`pdfFile created ${pdfFile.path()}`);
