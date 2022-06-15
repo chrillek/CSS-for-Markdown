@@ -2,7 +2,7 @@
 
 startDir="/Users/ck/Develop/websites"
 mdDir="CSS-for-Markdown"
-fullDir = "$startDir/$mdDir"
+fullDir="$startDir/$mdDir"
 archive="$mdDir/Using CSS.zip"
 mdFile="$mdDir/Using CSS.md"
 cssFile="$mdDir/styles.css"
