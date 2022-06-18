@@ -6,7 +6,7 @@
   const mdName = args.js[5].js;
   const targetDirectory = args.js[6].js;
    /* import path into new group in the Test DB - prevents sync*/
-  const mdGroup = app.import(pathToDirectory, {to. app.databases.Test.root()});
+  const mdGroup = app.import(pathToDirectory, {to: app.databases.Test.root()});
   const mdFile = app.search(`name:${mdName} kind:markdown`, {in: mdGroup});
   if (mdFile.length !== 1) throw `File '${mdName}' not found in group'`;
   const pdfFile = app.convert( {record: mdFile[0], to: "PDF document"});
