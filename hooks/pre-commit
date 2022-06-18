@@ -15,5 +15,5 @@ pdfFile="Using CSS.pdf"
 # Now the archive is ready. Build the PDF from it using DEVONthink
 ## Doesn't work yet due to a bug in DT's JXA binding
 
-(cd $startDir/$mdDir;  osascript -l JavaScript buildPDF.js `pwd` "Using CSS" `pwd`; cd "$mdDir" ; git add -u "$pdfFile" )
+(cd $startDir/$mdDir;  osascript -l JavaScript buildPDF.js `pwd` "Using CSS" `pwd`; git add -u "$pdfFile" )
 
