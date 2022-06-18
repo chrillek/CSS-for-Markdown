@@ -5,17 +5,11 @@
   if (!pathToDirectory) throw "Must pass directory name on command line"
   const mdName = args.js[5].js;
   const targetDirectory = args.js[6].js;
-  app.logMessage(`path: '${pathToDirectory}'\nmdName: '${mdName}'\ntargetDir: '${targetDirectory}'`);
-   /* import path into new group in the global inbox */
-  const mdGroup = app.import(pathToDirectory);
-  app.logMessage('imported into group ${mdGroup.name()}`')
-  const mdFile = app.search(`name:${mdName}`, {in: mdGroup});
-  app.logMessage(`${mdFile.length} files found in Group`);
+   /* import path into new group in the Test DB - prevents sync*/
+  const mdGroup = app.import(pathToDirectory, {to. app.databases.Test.root()});
+  const mdFile = app.search(`name:${mdName} kind:markdown`, {in: mdGroup});
   if (mdFile.length !== 1) throw `File '${mdName}' not found in group'`;
   const pdfFile = app.convert( {record: mdFile[0], to: "PDF document"});
-  app.logMessage(`pdfFile created ${pdfFile.path()}`);
   app.export({record: pdfFile, to: targetDirectory});
-  app.logMessage("pdfFile exported");
   app.delete({record: mdGroup});
-  app.logMessage(`group deleted`)
 })()

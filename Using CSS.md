@@ -38,7 +38,7 @@ body {
   background-color: white;
 }
 ```
-![The baseline: white background, black text](images/Kein-Stil.png "The baseline: white background, black text")
+![The baseline: white background, black text](images/Default-styling.jpg "The baseline: white background, black text")
 
 These lines ensure that the `body` element of an HTML document is displayed black (`color`) on white (`background-color`). As styles are "cascading" (the C in CSS), this simple definition ensures that _all text_ in your rendered Markdown appears black on white – all elements are children of the `body` element and by default inherit its style definitions.
 
@@ -99,7 +99,7 @@ The good news is that the HTML generated from Markdown is fairly simple. It cont
   <p>...</p>
   <h2>...</h2>
   <p>...</p>
-  <blockquote><p>...</p><p>...</p</blockquote>
+  <blockquote><p>...</p><p>...</p></blockquote>
   other elements
 </body>
 ```
@@ -131,7 +131,7 @@ p {
   text-indent: 1em;
 }
 ```
-![Paragraphs indented by 1em space](images/1em-Paragraph-Indent.png "Paragraphs indented by 1em space")
+![Paragraphs indented by 1em space](images/Paragraph-1em-indent.jpg "Paragraphs indented by 1em space")
 
 or if you'd want all first level headlines to have a red underline
 ```css
@@ -139,7 +139,7 @@ h1 {
   text-decoration: underline red;
 }
 ```
-![H1 headings underlined with red](images/H1%20red%20underline.png "H1 headings underlined with red")
+![H1 headings underlined with red](images/H1-red-underline.jpg "H1 headings underlined with red")
 
 or if you'd want all third level headings to appear in uppercase
 
@@ -148,7 +148,7 @@ h2 {
   text-transform: uppercase;
 }
 ```
-![Uppercased H2 headings](images/H1%20red%20underline,%20H2%20uppercase.png "Uppercased H2 headings")
+![Uppercased H2 headings](images/H1-red-underline-H2-uppercase.jpg "Uppercased H2 headings")
 
 The latter, though, is probably not a very good idea – firstly, all uppercase letters are more difficult to read, secondly many readers will think that you're screaming at them. And thirdly, the text looks fundamentally different than what you see in your Markdown document.
 
@@ -162,7 +162,7 @@ blockquote {
   background-color: lightgrey;
 }
 ```
-![First attempt at blockquote styling](images/Blockquote%201.png "First attempt at blockquote styling")
+![First attempt at blockquote styling](images/Blockquote-1.jpg "First attempt at blockquote styling")
 
 Now, if you look at that in the rendered view, you might think that it leaves room for improvement. And it certainly does: first, the background color starts at the left side of the block, but the text begins `2em`s to the right of that. It would be nicer if only the text would have a different background color, not the whole block including the margin.
 
@@ -177,7 +177,7 @@ Here, `blockquote > p` selects only those paragraphs that are immediate children
 margin-left: 1em;
 background-color: lightgrey;
 ```
-![Blockquote with white margin between text and red line](images/Blockquote%202.png "Blockquote with white margin between text and red line")
+![Blockquote with white margin between text and red line](images/Blockquote-2.jpg "Blockquote with white margin between text and red line")
 
 That gives you a white margin of `1em` between the red vertical bar at the left and the grey background of the blockquote.
 ## What about fonts?
@@ -193,7 +193,7 @@ h4 {
 }
 ```
 
-![Avenir for first and second level headings](images/H1,%20H2%20Font.png "Avenir for first and second level headings")
+![Avenir for first and second level headings](images/H1-H2-Font.jpg "Avenir for first and second level headings")
 
 This `font-family` applies to headlines level 1 through 4. Note that font names containing spaces must be enclosed in double quotes. The selector is an example for specifying the same style for several HTML elements: just list the elements (or even more complicated selectors like `blockquote > p`) separated by commas.
 
@@ -203,7 +203,7 @@ Other font attributes you might want to use are `font-weight` to specify `light`
 
 ## What about colors?
 
-The preceding samples used named colors. While that might seem natural (at least for English speaking people), it is a bit awkward. What if you want a particular type of light green with a blue tint? It would be a challenge to even come up with a single english word to describe that color. And you couldn't be sure that your browser (or any browser) understands what you mean. Therefore, you can also specify colors by three hexadecimal digits like `#fff` (for white) or `#f00` (for a dark red) or by six of them (`#ffffff` or `#ff0000`). These values represent values for red, green and blue components. So instead of going with the `lightgrey` understood by browsers, you might want to use `#eee` which is more a dirty white.
+The preceding samples used named colors. While that might seem natural (at least for English speaking people), it is a bit awkward. What if you want a particular type of light green with a blue tint? It would be a challenge to even come up with a single english word to describe that color. And you couldn't be sure that your browser (or any browser) understands what you mean. Therefore, you can also specify colors by three hexadecimal digits like `#fff` (for white) or `#f00` (for a dark red) or by six of them (`#ffffff` or `#ff0000`). These hexadecimal numbers represent values for red, green and blue components. So instead of going with the `lightgrey` understood by browsers, you might want to use `#eee` which is more a dirty white.
 
 Other ways to specify colors are using `rgb(red, green, blue)` where the values in parenthesis are numbers between 0 and 255 or `hsl(hue, lightness, saturation)`. [MDN describes these variants in an article on `color` values.](https://developer.mozilla.org/de/docs/Web/CSS/color_value)
 
@@ -221,7 +221,7 @@ table {
 
 Without styling, an image will be displayed as large as possible. If it is smaller than the enclosing element (i.e. `body`), it will be made as wide as the `body` element is. If it's smaller, it will be displayed in its original size.
 
-![Default image display](images/img%20full.png "Default image display")
+![Default image display](images/img-default-styling.jpg "Default image display")
 
 The image height will be set to respect the original aspect ration and avoid distortion. There are ways to specify image width and height in the Markdown document itself, but I'd advise against it: It is a lot easier to style (and size) all images the same way with CSS. So,
 
@@ -232,7 +232,7 @@ img {
 ```
 sets the width of all images to half of their parent element.
 
-![Image scaled to half the width of its parent](images/img%2050%.png "Image scaled to half the width of its parent")
+![Image scaled to half the width of its parent](images/img-half-width.jpg "Image scaled to half the width of its parent")
 
 If you try that out, you'll notice that an image in the middle of a paragraph looks a bit weird since it interrupts the flow of the text in a funny way.
 
@@ -245,7 +245,7 @@ img {
 }
 ```
 
-![Image displayed as block](images/img%20block.png "Image displayed as block")
+![Image displayed as block](images/img-block.jpg "Image displayed as block")
 
 That makes sure that images behave like paragraphs, i.e. they force line breaks before and after them.
 
@@ -268,11 +268,11 @@ img {
 }
 ```
 
-![Image floated to the left](images/img%20float.png "Image floated to the left")
+![Image floated to the left](images/img-float.jpg "Image floated to the left")
 
 makes the image stay at the left margin of the document, while the text continues at its right side. You should set the top, right, and bottom margin for the `img` element, too, so that the text does not crowd it.
 
-![Image floated to the left with margins](images/img%20float%20+%20margin.png "Image floated to the left with margins")
+![Image floated to the left with margins](images/img-float-margin.jpg "Image floated to the left with margins")
 
 Instead of having the text flow around the image at the right side, you can set `float` to `right` so that the image appears at the document's right margin and the text to the left of it.
 
@@ -310,7 +310,7 @@ tr th {
 }
 ```
 
-![Default table styling without borders](images/Table%20default.png "Default table styling with
+![Default table styling without borders](images/Table-default.jpg "Default table styling with
 no borders")
 
 One detail many people want are lines dividing the columns and rows. That, however, is not something you can set for the whole table. Instead, you have to specify a `border` for the `td` and `th` cells (i.e. those in the body and the head of the table):
@@ -324,7 +324,7 @@ Here, `table :is(td.th)` is an abbreviation for `table td, table th`. The border
 
 However, these settings will result in a peculiar phenomenon in that there's small white space now between the borders of the individual cells. They look a bit like windows in a building. To get rid of it, add `border-collapse: collapse` to the style of the `table` element.
 
-![Table with basic borders](images/Table%20border.png "Table with basic borders")
+![Table with basic borders](images/Table-border.jpg "Table with basic borders")
 
 Another often required feature are alternating row colors. They're fairly easy to achieve like this:
 
@@ -334,7 +334,7 @@ tbody tr:nth-child(even) {
 }
 ```
 
-![Table with alternating row colors](images/Table%20alternating%20row.png "Table with
+![Table with alternating row colors](images/Table-alternating-row.jpg "Table with
 alternating row colors")
 
 This will display every second row with a light blue background, starting with the second row. The `:nth-child` pseudo-class is a bit tricky, though. If you have trouble with it, try using `:nth-of-type` instead.
@@ -376,7 +376,7 @@ Let's assume a Markdown document like this
 ```
 Rendering that as HTML results in something like this
 
-![Unstyled Headings](images/Headings%20no%20style.png "Unstyled Headings")
+![Unstyled Headings](images/Headings-no-style.jpg "Unstyled Headings")
 
 Adding a counter to the headings requires three steps:
 
@@ -394,9 +394,9 @@ h1::before {
   content: counter(h1) ". ";
 }
 ```
-First, you create a counter named `h1` in the CSS rule for the `body` element. Its value is set to `0` by default. Then comes the `::before` pseudo-element for the `h1` element. It's different from other CSS selectors in that it _creates_ an element (a pseudo one, though) in the `h1` element just before anything that is already part of this element. So the (pseudo-HTML) for the first heading would look like `<h1><before>...</before>First heading</h1>`. Note that this `before` element does not exist! However, you can create and style it in a stylesheet like here. The rule for `h1::before` first increments the counter `h1` with `counter-increment`. Since it started out with `0` because of the `body` rule, it will now be `1`. Then this value is prepended to the content of `h1` with the `content:` directive: `counter(h1)` gets the value of the counter, and `". "` appends a dot and a space. After all that, the headlines look like this: ![First level headings with a counter](Headings%201st%20level%20numbering.png "First level headings with a counter")
+First, you create a counter named `h1` in the CSS rule for the `body` element. Its value is set to `0` by default. Then comes the `::before` pseudo-element for the `h1` element. It's different from other CSS selectors in that it _creates_ an element (a pseudo one, though) in the `h1` element just before anything that is already part of this element. So the (pseudo-HTML) for the first heading would look like `<h1><before>...</before>First heading</h1>`. Note that this `before` element does not exist! However, you can create and style it in a stylesheet like here. The rule for `h1::before` first increments the counter `h1` with `counter-increment`. Since it started out with `0` because of the `body` rule, it will now be `1`. Then this value is prepended to the content of `h1` with the `content:` directive: `counter(h1)` gets the value of the counter, and `". "` appends a dot and a space. After all that, the headlines look like this: 
 
-![Numbered first level headings](images/Headings%201st%20level%20numbering.png
+![Numbered first level headings](images/Headings-1st-level-numbering.jpg
 "Numbered first level headings")
 
 Now adding the corresponding rules for 2nd and 3rd level headings is a lot easier:
@@ -419,17 +419,17 @@ h3::before {
 ```
 The only new things here are the `content:` definitions for the level 2 and 3 headings and the `counter-reset`s: Whenever a new level 1 heading appears, the `h2` counter must be reset so that the next level 2 heading is numbered with 1 again. The same holds for a new level 2 heading that must reset the `h3` counter.
 
-![All headings numbered](images/Headings%20all%20levels%20numbering.png "All headings numbered")
+![All headings numbered](images/Headings-all-levels-numbering.jpg "All headings numbered")
 
 If you now move the line "# Second Heading" down to just before "# Third heading", you'll get this HTML:
 
-![Second heading moved ](images/Headings%202nd%20moved.png "Second heading moved")
+![Second heading moved ](images/Headings-2nd-moved.jpg "Second heading moved")
 
 As you can see, the former "2.1 First sub-heading of second heading" has now become "1.1 First sub-heading of second heading", since it's now following the first `h1` element, no longer the second one.
 
 If you delete the line "# Second Heading" completely, the numbering for all subsequent headings will be adjusted:
 
-![Heading 2 deleted](images/Heading%202nd%20removed.png "Heading 2 deleted")
+![Heading 2 deleted](images/Headings-2nd-removed.jpg "Heading 2 deleted")
 
 CSS counters can not only be used for headings but also for lists, footnotes and links. You're not limited to Arabic numerals but can[ define your own `counter-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles).
 ## What about dark mode?
