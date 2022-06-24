@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="styles.css">
 {{TOC}}
-## Why would you care about CSS?
+## Why would you care about CSS
 
 CSS stands for Cascading Style Sheets. It is a text format that allows you to describe the visual appearance of HTML documents. In DEVONthink, CSS is used to determine the visual appearance of Markdown documents when they are rendered as HTML. Whenever you select the preview mode to look at a Markdown document, you'll see it rendered as HTML in some kind of "style". Unless you do anything about it, this will be the style that is built into DEVONthink (and the HTML engine it uses). If you're happy with that, you can stop reading here.
 
@@ -396,8 +396,7 @@ h1::before {
 ```
 First, you create a counter named `h1` in the CSS rule for the `body` element. Its value is set to `0` by default. Then comes the `::before` pseudo-element for the `h1` element. It's different from other CSS selectors in that it _creates_ an element (a pseudo one, though) in the `h1` element just before anything that is already part of this element. So the (pseudo-HTML) for the first heading would look like `<h1><before>...</before>First heading</h1>`. Note that this `before` element does not exist! However, you can create and style it in a stylesheet like here. The rule for `h1::before` first increments the counter `h1` with `counter-increment`. Since it started out with `0` because of the `body` rule, it will now be `1`. Then this value is prepended to the content of `h1` with the `content:` directive: `counter(h1)` gets the value of the counter, and `". "` appends a dot and a space. After all that, the headlines look like this: 
 
-![Numbered first level headings](images/Headings-1st-level-numbering.jpg
-"Numbered first level headings")
+![Numbered first level headings](images/Headings-1st-level-numbering.jpg "Numbered first level headings")
 
 Now adding the corresponding rules for 2nd and 3rd level headings is a lot easier:
 
