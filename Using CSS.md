@@ -3,9 +3,7 @@
 ## Why would you care about CSS?
 
 CSS stands for Cascading Style Sheets. It is a text format that allows you to describe the visual appearance of HTML documents. In DEVONthink, CSS is used to determine the visual appearance of Markdown documents when they are rendered as HTML. Whenever you select the preview mode to look at a Markdown document, you'll see it rendered as HTML in some kind of "style". Unless you do anything about it, this will be the style that is built into DEVONthink (and the HTML engine it uses). If you're happy with that, you can stop reading here.
-
 ## How can you tell DEVONthink to use your own CSS?
-
 As of the time of this writing (DEVONthink Pro Version 3.8 and DEVONthink To Go 3.5.1), there are four methods to specify your own CSS in DEVONthink:
 
 1. In the global preferences. In DEVONthink, you'd provide the x-devonthink-item URL to a record stored somewhere in your database(s) and containing your CSS. In DEVONthink To Go, you do the same in the settings for Markdown documents. A globally defined CSS will influence _all_ Markdown documents in DEVONthink.
@@ -15,12 +13,10 @@ As of the time of this writing (DEVONthink Pro Version 3.8 and DEVONthink To Go 
 3. Add an HTML `script` element somewhere in your Markdown document, i.e. a piece of code looking like that
    `<style> Style definitions go here</style>` If you go for this option, make sure that you _do not_ have any empty lines in the `style` element. Those will break everything.
 
-4. Add an HTML `link` element to the top of your Markdown document like so `<link rel="steylsheet" href="URL">` Again, the `URL` parameter can be anything from a usual URL to a `x-devonthink-item://...` one or an absolute location like `/Inbox/myCSS.txt`.
+4. Add an HTML `link` element to the top of your Markdown document like so `<link rel="stylesheet" href="URL">` Again, the `URL` parameter can be anything from a usual URL to a `x-devonthink-item://...` one or an absolute location like `/Inbox/myCSS.txt`.
 
 The last three methods will add CSS only to those Markdown documents where you insert them. So, they're not really useful if you want to make sure that _all_ your Markdown documents look the same.
-
 ## What does CSS look like?
-
 A style sheet is a sequence of definitions of the form
 ```css
 selector: {
@@ -50,10 +46,8 @@ blockquote {
 }
 ```
 The `background-color` should be obvious. `left-margin` defines the distance of the left edge of the element from the left edge of its parent element. So here, this distance is `2em`, which means "two em spaces". An em space is a typographical unit that is as wide as the font's height.
-
 ### Refrain from absolute units!
-
-In many CSS examples, you'll still find units like `px`, for example something like `margin-left: 10px`. While it might be tempting to use these absolute units, you should in most cases _not_ do that. Instead, employ relative units like `em` or `%` or `ch` (number of characters) or `vw` (percentage of the viewport width). These allow for a "responsive" layout, i.e. one that works well with different screen sizes and orientations. Pixel sizes vary widely from one device to the next and do not work well if the user zooms in or out.
+In many CSS examples, you'll still find units like `px`, for example something like `margin-left: 10px`. While it might be tempting to use these absolute units, you should in most cases _not_ do that. Instead, employ relative units like `em`, `%`, `ch` (number of characters) or `vw` (percentage of the viewport width). These allow for a „responsive“ layout, i.e. one that works well with different screen sizes and orientations. Pixel sizes vary widely from one device to the next and do not work well if the user zooms in or out. Also, absolute units tend to break the layout if the user increases the font size in their browser. 
 
 Note that `%` values always refer to the enclosing element's (i.e. the parent's) dimensions. In the case of `font-size`, a percentage value also refers to the font size of the parent element.
 
@@ -73,10 +67,7 @@ You might have wondered where the `blockquote` element came from in the second e
 | !\[text](URL)          | `<img src="URL" alt="text"/>`                                                    |
 | \|...\|                | `<table>...</table>` with all appropriate child elements                         |
 
-</details>
-
 ## Debugging CSS and playing with it
-
 While it is possible to change an external CSS, switch the view in DEVONthink and then go back editing the CSS until the results please you, that is a bit tedious. A simpler approach is this:
 
 - convert your Markdown document to HTML in DEVONthink
@@ -84,13 +75,9 @@ While it is possible to change an external CSS, switch the view in DEVONthink an
 - right click somewhere in the document and select "Inspect element".
 
 That will open the developer tools of your browser (you might have to enable developer mode in Safari first, though). There, you'll find a "style" tab, in which you can easily modify the styles for all elements individually or change the definitions in your CSS and see the changes immediately in HTML.
-
 ## Delving deeper into CSS
-
 CSS is a complicated beast, and it's getting more so every day (no thanks to Google inventing and implementing new exciting stuff). The only authoritative documentation is the one at the [W3C](https://w3c.org). However, that's unwieldy stuff not meant for mere mortals. There are numerous websites out there providing easier to digest examples and reference material, notably [CSS tricks](https://css-tricks.com/) and the [Mozilla Developer Network](https://developer.mozilla.org/docs/Web/CSS/).
-
 ### Structure of HTML generated from Markdown
-
 The good news is that the HTML generated from Markdown is fairly simple. It contains only HTML elements without any classes or IDs. Also, the number of elements is small, so you won't see the fancier stuff like `aside`, `nav`, `section` and the like, nor any `div`s wrapping elements. Basically, an HTML document generated from Markdown, has this structure:
 ```html
 <head>....</head>
@@ -104,9 +91,7 @@ The good news is that the HTML generated from Markdown is fairly simple. It cont
 </body>
 ```
 where other elements can be lists or tables. All elements except `head` and `body` can repeat any number of times. Links and images are just rendered as shown above inside a `p` element. This simple structure makes styling HTML generated from Markdown easy, at least compared to a full-fledged HTML document.
-
 ### Lay out the foundation
-
 To start from scratch, I suggest setting all relevant values to reasonable defaults on the `body` element. This is sometimes referred to as a _CSS reset_. Of course, it is up to you what you consider "reasonable". Something like this might be a starting point:
 ```css
 body {
@@ -122,9 +107,7 @@ body {
 The choice of the `font-family` is very much a matter of taste (more so than everything else, probably). Here, I went for a serif font: "Century Schoolbook" is used if it's available. Otherwise, "Times", and if that's also missing, the default serif font. Also, I specified a `font-size` of `1em`, which is the same as the font size specified for the user agent (aka "browser") used to render the HTML. This is not strictly necessary, but it makes sure that the default text size in your HTML is the same the user specified in their browser settings.
 
 To make the text easier to read, the maximum width of the `body` element (and all its children!) is set to `55ch`, that is 55 average characters (loosely speaking). `padding` is the inner margin of an element that will remain blank, whereas `margin` is the space between the current element and its parent. Here, I specify a left margin of `2em` so that the text does start flush left.
-
 ### Fine-tune HTML elements
-
 These styles for `body` define a baseline. Now you can specify differing styles for other elements to your heart's content. For example, if you'd like the first line of every paragraph to be indented by an em space, you could use
 ```css
 p {
@@ -151,9 +134,7 @@ h2 {
 ![Uppercased H2 headings](images/H1-red-underline-H2-uppercase.jpg "Uppercased H2 headings")
 
 The latter, though, is probably not a good idea – firstly, all uppercase letters are more difficult to read, secondly many readers will think that you're screaming at them. And thirdly, the text looks fundamentally different from what you see in your Markdown document.
-
 ## Styling block quotes
-
 You've already seen a short example that made quotes stand out from the regular text. Another, more advanced one is this:
 ```css
 blockquote {
@@ -181,9 +162,7 @@ background-color: lightgrey;
 
 That gives you a white margin of `1em` between the red vertical bar at the left and the gray background of the blockquote.
 ## What about fonts?
-
 If you want different fonts in your running text and your headline, you have to specify a different `font-family` for the headlines:
-
 ```css
 h1,
 h2,
@@ -200,15 +179,11 @@ This `font-family` applies to headlines level 1 through 4. Note that font names 
 Usually, the default font sizes for the different headings are ok. If you want to change those, use the attribute `font-size` and specify an `em` value, for example `2.0em` for a `h1`. Do not use pixels or other absolute values here: The person viewing your HTML might have chosen their own preferred font size in the browser settings, and specifying absolute values for font sizes plays havoc with these settings.
 
 Other font attributes you might want to use are `font-weight` to specify `light` or `bold` variants, `text-decoration` and `text-transform`.
-
 ## What about colors?
-
 The preceding samples used named colors. While that might seem natural (at least for English-speaking people), it is a bit awkward. What if you want a particular type of light green with a blue tint? It would be a challenge to even come up with a single English word to describe that color. And you couldn't be sure that your browser (or any browser) understands what you mean. Therefore, you can also specify colors by three hexadecimal digits like `#fff` (for white) or `#f00` (for a dark red) or by six of them (`#ffffff` or `#ff0000`). These hexadecimal numbers represent values for red, green and blue components. So instead of going with the `lightgrey` understood by browsers, you might want to use `#eee` which is more a dirty white.
 
 Other ways to specify colors are using `rgb(red, green, blue)` where the values in parentheses are numbers between 0 and 255 or `hsl(hue, lightness, saturation)`. [MDN describes these variants in an article on `color` values.](https://developer.mozilla.org/de/docs/Web/CSS/color_value)
-
 ## How to center elements
-
 Sometimes you might want to center certain elements, for example tables. Firstly, often that only makes sense if the element is not as wide as the surrounding ones. So, you should set a `width` value for your element that is smaller than the `body`'s width. After that, simply set both `margin-left` and `margin-right` to `auto`. That makes sure that both margins are equally wide and that the white space is evenly distributed to the left and right of your element – effectively centering it. For a table, you'd for example write
 ```css
 table {
@@ -218,7 +193,6 @@ table {
 }
 ```
 ## Sizing and styling images
-
 Without styling, an image will be displayed as large as possible. If it is smaller than the enclosing element (i.e. `body`), it will be made as wide as the `body` element is. If it's smaller, it will be displayed in its original size.
 
 ![Default image display](images/img-default-styling.jpg "Default image display")
@@ -258,9 +232,7 @@ img {
 }
 ```
 does just that. Explaining the values in detail would take up too much space here, though. You might want to read about `box-shadow` over at MDN and play around with the parameters.
-
 ### Flowing text around images
-
 Often, it looks nicer if the text continues next to the image instead of having a wide blank area around the image. You can achieve this by "floating" the image:
 ```css
 img {
@@ -275,9 +247,7 @@ makes the image stay at the left margin of the document, while the text continue
 ![Image floated to the left with margins](images/img-float-margin.jpg "Image floated to the left with margins")
 
 Instead of having the text flow around the image on the right side, you can set `float` to `right` so that the image appears at the document's right margin and the text to the left of it.
-
 ## Styling tables
-
 Styling tables is more demanding than styling other elements. You first have to understand table structure: a `table` element consists of a head and a body (`thead` and `tbody`). Both of them in turn are made up of row (`tr`) elements. And every row consists of `th` (for a table head) or `td` elements, which are finally defining the table cells themselves. So, the whole thing looks like that:
 ```html
 <table>
@@ -313,7 +283,7 @@ tr th {
 ![Default table styling without borders](images/Table-default.jpg "Default table styling with
 no borders")
 
-One detail many people want are lines dividing the columns and rows. That, however, is not something you can set for the whole table. Instead, you have to specify a `border` for the `td` and `th` cells (i.e. those in the body and the head of the table):
+Many people want lines dividing the columns and rows. That, however, is not something you can set for the whole table. Instead, you have to specify a `border` for the `td` and `th` cells (i.e. those in the body and the head of the table):
 ```css
 table :is(td, th) {
   border: 1px solid black;
@@ -327,13 +297,11 @@ However, these settings will result in a peculiar phenomenon, in that there's sm
 ![Table with basic borders](images/Table-border.jpg "Table with basic borders")
 
 Another often required feature are alternating row colors. They're fairly easy to achieve like this:
-
 ```css
 tbody tr:nth-child(even) {
   background-color: #e0e0ff; /* a lighter blue than for the header */
 }
 ```
-
 ![Table with alternating row colors](images/Table-alternating-row.jpg "Table with
 alternating row colors")
 
@@ -349,9 +317,7 @@ tbody tr:nth-child(odd) {
 }
 ```
 There are a lot of other "pseudo classes", so it's worth checking them out on MDN. Instead of `even` or `odd` you can specify more complicated rules like `4n+1` to select the rows 1, 5, 9, 13 etc. In fact, `even` is the same as `2n` and odd is `2n+1`.
-
 ## Numbered headings
-
 By default, headings appear in HTML just as you typed them in your Markdown document. Especially in scientific publications, some kind of systematic numbering is often required. You can, of course, provide that by simply adding the number to your heading. However, that requires a lot of manual work and more so whenever you add, move or delete parts of the document.
 
 CSS offers a much simpler way to render systematically numbered headlines with its concept of "counters". You can read [all about counters at MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Counter_Styles/Using_CSS_counters#using_counters). The following examples are just a very limited demonstration of their abilities.
@@ -359,19 +325,12 @@ CSS offers a much simpler way to render systematically numbered headlines with i
 Let's assume a Markdown document like this
 ```markdown
 # First heading
-
 # Second heading
-
 ## First sub-heading of second heading
-
 # Third heading
-
 ## First sub-heading of third heading
-
 ### Third heading's first sub-heading's first subheading
-
 ## Second sub-heading of third heading
-
 # Fourth heading
 ```
 Rendering that as HTML results in something like this
@@ -399,7 +358,6 @@ First, you create a counter named `h1` in the CSS rule for the `body` element. I
 ![Numbered first level headings](images/Headings-1st-level-numbering.jpg "Numbered first level headings")
 
 Now adding the corresponding rules for 2nd and 3rd level headings is a lot easier:
-
 ```css
 h1 {
   counter-reset: h2;
@@ -472,19 +430,15 @@ Of course, if you prefer dark to light mode anyway, you could set up the main pa
 }
 ```
 as a starting point for a light mode style sheet.
-
 ## Styles for printing
-
-To print a Markdown document, the environment will most probably first convert it to HTML and then print that. If that is the case, you can use CSS to style the printed document. Like for dark and light mode, you'll use a media query for that like so:
+To print a Markdown document, the environment will most probably first convert it to HTML and then print that. In that case, you can use CSS to style the printed document. Like for dark and light mode, you'll use a media query for that like so:
 ```css
 @media only print {
 /* all print styles go here */
 }
 ```
-In addition to all the style definitions you can use in CSS for screen devices, `print` media provides some attributes to fine-tune the output on paper. **Beware**, though: not all browsers support the same set of attributes. To find out more about (un)supported attributes, checkout [Caniuse.com](https://caniuse.com).
-
+In addition to all the style definitions you can use in CSS for screen devices, `print` media provides some attributes to fine-tune the output on paper. **Beware**, though: browser support for the print media rule is still shaky and not overly reliable. You might need to experiment by converting your MD document to HTML first and then printing it from different browsers to see which one best matches your requirements. To find out more about (un)supported attributes, checkout [Caniuse.com](https://caniuse.com).
 ### Preventing and forcing page breaks
-
 A page break after a first or second level heading looks bad. For example, a page break directly after a first or second level heading looks bad in print, as does a page break in the middle of a table or between an image and its caption. To achieve page breaks directly after first, second, and third level headings, use
 ```css
 h1, h2, h3 {
@@ -505,11 +459,8 @@ body > h2:not(:first-child) {
   break-before: page;
 }
 ```
-
 The selector `body > h2:not(:first-child)` matches all `h2` elements but the first one. That is useful if the first 2nd level heading comes relatively soon after the first `h1` element: having a new page start after only a very short piece of text might look weird. If you don't think so, simply use `h2` as the selector here to have a break before _every_ `h2` element.
-
 ### Make links visible
-
 On screen and in a PDF, links are simply clickable text. The user does not need to know the URL associated with them. In a printed document, that is quite different, since there's nothing to click on. So, it might be a good idea to have the URL printed together with the link text. Which can be achieved with a simple CSS rule:
 ```css
 p a::after {
@@ -518,9 +469,7 @@ p a::after {
 }
 ```
 This adds the parenthesized URL after the link text in a light blue color. Note that this will only work for links _inside_ paragraphs. That restriction should be ok for most Markdown documents. Here, the function `attr()` returns the value of the HTML attribute passed as its argument, namely `href`. That is the URL. The `::after` pseudo-selector matches the place just behind the `a` element, and `content` specifies the text to be inserted at the place. Which in this case is the link's URL in parentheses with a leading and a trailing space.
-
 ### Enough text at the top and bottom
-
 Having only one or two lines of a paragraph appear at the top or bottom of a page does not look very nice. This kind of trailing or leading text is called „widow“ or „orphan“ in typesetter lingo, and you can easily prevent both of them appearing in your printed Markdown documents:
 ```css
 p {
@@ -529,9 +478,7 @@ p {
 }
 ```
 Here, the numbers represent lines so that a page break can only occur when at least three lines of a paragraph are printed at the top or bottom of a page.
-
 ### Other things relevant for printed documents
-
 You can specify the page dimensions of your document using a `@page` rule:
 ```css
 @page {
