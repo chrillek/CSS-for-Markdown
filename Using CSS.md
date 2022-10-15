@@ -8,7 +8,7 @@ As of the time of this writing (DEVONthink Pro Version 3.8 and DEVONthink To Go 
 
 1. In the global preferences. In DEVONthink, you'd provide the x-devonthink-item URL to a record stored somewhere in your database(s) and containing your CSS. In DEVONthink To Go, you do the same in the settings for Markdown documents. A globally defined CSS will influence _all_ Markdown documents in DEVONthink.
 
-2. Add `css: URL` as the first line of your Markdown document(s). The `URL` can be any valid URL as well as an `x-devonthink-item://...` one or an absolute address of a record containing your CSS definitions like `/Inbox/myCss.txt`.
+2. Add `css: URL` as the first line of your Markdown document(s). The `URL` can be any valid URL like `x-devonthink-item://...`, the absolute address of a DT record containing your CSS definitions like `/Inbox/myCss.txt`, or a relative address like `styles.css`.
 
 3. Add an HTML `script` element somewhere in your Markdown document, i.e. a piece of code looking like that
    `<style> Style definitions go here</style>` If you go for this option, make sure that you _do not_ have any empty lines in the `style` element. Those will break everything.
@@ -16,6 +16,12 @@ As of the time of this writing (DEVONthink Pro Version 3.8 and DEVONthink To Go 
 4. Add an HTML `link` element to the top of your Markdown document like so `<link rel="stylesheet" href="URL">` Again, the `URL` parameter can be anything from a usual URL to a `x-devonthink-item://...` one or an absolute location like `/Inbox/myCSS.txt`.
 
 The last three methods will add CSS only to those Markdown documents where you insert them. So, they're not really useful if you want to make sure that _all_ your Markdown documents look the same.
+
+**Caveats** All four methods work just fine _inside_ DT. That is, if you look at the preview of your Markdown document in DT, you'll see all styles applied. Similarly, if you convert it to HTML or PDF inside DT, the styles will be reflected in those new documents. However, as soon as you're trying to work with a Markdown document outside of DT (or display the HTML in a browser), you have make sure that the other application can find your style sheet. Which it _can_ do if you are
+- using a URL to a location accessible via HTTP, like `https://example.com/styles.css`, or
+- including all styles verbatim in a `style` element _in_ the Markdown document 
+  
+However, neither an `x-devonthink-item` URL nor a record located in one of your databases will work as CSS definition in a browser or any other application. 
 ## What does CSS look like?
 A style sheet is a sequence of definitions of the form
 ```css
