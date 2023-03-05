@@ -166,24 +166,33 @@ tbody > tr:nth-child(even) {
   background-color:  #e0e0ff;
 }
 
-/** All the following styles apply only to the printed version, i.e. PDF **/
+/** All following styles apply only to the printed version, i.e. PDF **/
 @media only print  {
+  /* Set the page size and margins */
+  @page {
+    size: A4 portrait; /* Not working with Safari or FF */
+    margin-left: 2.5cm;
+    margin-right: 2.5cm;
+    margin-top: 2cm;
+    margin-bottom: 2cm;
+  }
   /* Reduce the font size a bit, the default is too large */
   body {
     font-size: 0.9em;
   }
-  /* Move to table of content more to the left since it will appear on its own
-page */
+  /* Move to table of content more to the left since it will appear on its own page */
   .TOC {
-    left: 10ch;
+    right: 10ch;
+    width: 30%;
   }
   /* Create a page break before every h2 element _but_ the very first */
-  body>h2:not(:first-child) {
+  h2:not(:first-of-type) {
     break-before: page;
   }
-  /* Prevent page breaks immediately after h2 and and h3 headings */
-  h3,h2 {
-    break-after: avoid;
+  /* Prevent page breaks immediately after h3 headings */
+  h3 {
+    break-after: avoid-page;
+    break-inside: avoid;
   }
   /* Prevent page breaks in the middle of tables, figures and code samples */
   table, pre, figure {
