@@ -12,7 +12,7 @@ As of the time of this writing (DEVONthink Pro Version 3.8 and DEVONthink To Go 
 
 2. Add `css: URL` as the first line of your Markdown document(s). The `URL` can be any valid URL as well as an `x-devonthink-item://...` one or an absolute address of a record containing your CSS definitions like `/Inbox/myCss.txt`.
 
-3. Add a HTML `script` element somewhere in your Markdown document, i.e. a piece of code looking like that
+3. Add a HTML `style` element somewhere in your Markdown document, i.e. a piece of code looking like that
    `<style> Style definitions go here</style>` If you go for this option, make sure that you _do not_ have any empty lines in the `style` element. Those will break everything.
 
 4. Add a HTML `link` element to the top of your Markdown document like so `<link rel="steylsheet" href="URL">` Again, the `URL` parameter can be anything from a usual URL to a `x-devonthink-item://...` one or an absolute location like `/Inbox/myCSS.txt`.
