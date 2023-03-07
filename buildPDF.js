@@ -9,6 +9,56 @@ ObjC.import('PDFKit');
 ObjC.import('CoreGraphics');
 ObjC.import('AppKit');
 
+const TOCHeader = "Table of content"; // That's what MultiMarkdown inserts, because it has no idea of L10N
+
+  /* Class to handle insertion of TOC entries into the correct level of the tree */
+
+  class tableOfContents {
+  
+    constructor(topLevel) {
+      this.topLevel = this.lastParent = topLevel;
+      this.lastLevel = -1;
+      this.lastSibling = this.lastParent = undefined;
+    }
+    
+    getTopLevel() {
+      return this.topLevel;
+    }
+    
+    addEntry(title, currentLevel, destination) {
+    //  console.log(`Adding "${title}" to TOC for level ${currentLevel}`)
+    //  console.log(`lastLevel: ${this.lastLevel}`);
+      const tocEntry = $.PDFOutline.alloc.init;
+      tocEntry.destination = destination;
+      
+      /* Use the heading in the PDF doc as label for the TOC entry */
+      tocEntry.label = $(title);
+      /* Find the appropraite parent PDFOutline to append this TOC entry to */
+      const parentOutline = (() => {
+        /* Current heading is bigger than last one: append to last one or outline for first heading */
+        if (currentLevel > this.lastLevel) 
+          return this.lastSibling || this.topLevel;
+        /* Current heading is on same level as last one: append to parent of last sibling */
+        if (currentLevel === this.lastLevel)
+          return this.lastSibling.parent;
+        /* Current heading is smaller than last one: move upwards to find matching parent */
+        let targetLevel = this.lastLevel;
+        let targetEntry = this.lastParent || this.topLevel;
+        while (targetLevel > currentLevel) {
+          targetEntry = targetEntry.parent || this.topLevel;
+          targetLevel--;
+        }
+        return targetEntry;
+      })()
+      parentOutline.insertChildAtIndex(tocEntry, parentOutline.numberOfChildren);
+  //    console.log(`Inserting in ${parentOutline ? parentOutline.label.js : 'toplevel'}`);
+      this.lastLevel = currentLevel;
+      this.lastParent = tocEntry.parent;
+      this.lastSibling = tocEntry;
+      //  console.log(`Final lastLevel: ${this.lastLevel}`);
+    }
+  }
+
 (()=> {
   const app = Application("DEVONthink 3");
   const args = $.NSProcessInfo.processInfo.arguments;
@@ -25,68 +75,16 @@ ObjC.import('AppKit');
   if (mdFile.length !== 1) throw `File '${mdName}' not found in group'`;
   /* Convert MD to PDF */
   const pdfFile = app.convert( {record: mdFile[0], to: "PDF document"});
-  build_TOC(mdFile[0], pdfFile);
+  console.log(`PDF created in ${mdGroup.name()}`);
+  buildTOC(app, mdFile[0], pdfFile);
   /* Export the PDF to the target dir */
   app.export({record: pdfFile, to: targetDirectory});
   /* Delete the group again –– seems not to work? */
  // app.delete({record: mdGroup});
 })()
 
-
-
-
-function buildTOC(mdRecord, pdfRecord) {
-  const TOCHeader = "Table of content"; // That's what MultiMarkdown inserts, because it has no idea of L10N
-
-  /* Class to handle insertion of TOC entries into the correct level of the tree */
-
-  class tableOfContents {
-  
-  constructor(topLevel) {
-    this.topLevel = this.lastParent = topLevel;
-    this.lastLevel = -1;
-    this.lastSibling = this.lastParent = undefined;
-  }
-  
-  getTopLevel() {
-    return this.topLevel;
-  }
-  
-  addEntry(title, currentLevel, destination) {
-  //  console.log(`Adding "${title}" to TOC for level ${currentLevel}`)
-  //  console.log(`lastLevel: ${this.lastLevel}`);
-    const tocEntry = $.PDFOutline.alloc.init;
-    tocEntry.destination = destination;
-    
-    /* Use the heading in the PDF doc as label for the TOC entry */
-    tocEntry.label = $(title);
-    /* Find the appropraite parent PDFOutline to append this TOC entry to */
-    const parentOutline = (() => {
-      /* Current heading is bigger than last one: append to last one or outline for first heading */
-      if (currentLevel > this.lastLevel) 
-        return this.lastSibling || this.topLevel;
-      /* Current heading is on same level as last one: append to parent of last sibling */
-      if (currentLevel === this.lastLevel)
-        return this.lastSibling.parent;
-      /* Current heading is smaller than last one: move upwards to find matching parent */
-      let targetLevel = this.lastLevel;
-      let targetEntry = this.lastParent || this.topLevel;
-      while (targetLevel > currentLevel) {
-        targetEntry = targetEntry.parent || this.topLevel;
-        targetLevel--;
-      }
-      return targetEntry;
-    })()
-    parentOutline.insertChildAtIndex(tocEntry, parentOutline.numberOfChildren);
-//    console.log(`Inserting in ${parentOutline ? parentOutline.label.js : 'toplevel'}`);
-    this.lastLevel = currentLevel;
-    this.lastParent = tocEntry.parent;
-    this.lastSibling = tocEntry;
-    //  console.log(`Final lastLevel: ${this.lastLevel}`);
-  }
-}
-
-  const app = Application("DEVONthink 3")
+function buildTOC(app, mdRecord, pdfRecord) {
+  console.log(`Creating TOC for ${mdRecord.name()} in ${pdfRecord.name()}`)
   
   const txt = mdRecord.plainText();
   if (!/\{\{TOC}}/.test(txt)) {
@@ -102,6 +100,7 @@ function buildTOC(mdRecord, pdfRecord) {
     matchAll(/^(#+\s+.*?)$/smg)].
   map(h => h[1]);
   
+  console.log(`Found ${headings.length} headlines in MD`)
   /* Convert the MD to PDF, get the PDFDocument from it and create the top-level Outline */
  
   const pdfDoc = $.PDFDocument.alloc.initWithURL($.NSURL.fileURLWithPath($(pdfRecord.path())));
@@ -109,6 +108,7 @@ function buildTOC(mdRecord, pdfRecord) {
   
   const TOC = new tableOfContents(outline); // Create TOC object
   
+  console.log(`TOC created`);
   /* Get the text layer of the PDF as JavaScript string */
   const pdfText = pdfDoc.string.js;
   const pdfTOCBox = pdfText.includes(TOCHeader)  
@@ -116,6 +116,7 @@ function buildTOC(mdRecord, pdfRecord) {
     : undefined;
   /* Loop over all headlines from the MD document */
   headings.forEach(h => {
+    console.log(`Working on headline "${h}"`)
     /* Calculate the headline level from the number of leading '#' characters */
     const currentLevel = h.match(/^#+/m)[0].length;
     /* Remove the leading hash signs and space(s) from headline (first replace), and
